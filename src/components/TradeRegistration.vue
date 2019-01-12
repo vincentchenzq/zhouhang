@@ -5,9 +5,9 @@
 </style>
 <template>
   <div class="trade-registration">
-    <img src="/static/03.png" width="950" />
+    <img src="/static/03.png" />
     <br>
-    <img src="/static/04.png" width="950" />
+    <img src="/static/04.png"/>
   </div>
 </template>
 <script>
