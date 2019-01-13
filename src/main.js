@@ -17,9 +17,9 @@ Vue.use(iView);
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>',
+    el: '#app',
+    router,
+    store,
+    components: { App },
+    template: '<App/>',
 });

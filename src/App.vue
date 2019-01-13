@@ -11,7 +11,6 @@
         .layout {
             display: flex;
             box-sizing: border-box;
-            border: 1px solid #ddd;
         }
         .menu{
             display:flex;
@@ -45,8 +44,8 @@
                 <li @click="value4=!value4">联系客服</li>
             </ul>
         </div>
-        <div class="layout">
-            <Content :style="{padding: '24px', minHeight: 'calc(90vh - 50px)', background: '#fff',}">
+        <div class="layout" :style="{minHeight: 'calc(90vh - 60px)'}">
+            <Content :style="{ background: '#fff',}">
                 <keep-alive>
                     <router-view/>
                 </keep-alive>
@@ -110,9 +109,11 @@
         methods: {
             selectMenu(item, index) {
                 this.activeIndex = index;
-                this.$router.push({
-                    path: item.value,
-                });
+                if(item.value){
+                    this.$router.push({
+                        path: item.value,
+                    });
+                }
             },
         },
         mounted() {

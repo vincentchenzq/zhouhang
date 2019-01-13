@@ -1,6 +1,7 @@
 export const MENU = {
   tradeRegistration: '/tradeRegistration', // 商标注册
   tradeLeasing: '/tradeLeasing', // 商标转让
+  tradeUpload: '/tradeUpload', // 商标上传
   tradeChange: '/tradeChange', // 商标变更
   tradeInformation: '/tradeInformation', // 商标资讯
   aboutUs: '/aboutUs', // 关于我们
@@ -14,6 +15,10 @@ export const MENU_LIST = [
   {
     label: '商标转让',
     value: MENU.tradeLeasing,
+  },
+  {
+    label: '商标上传',
+    value: MENU.tradeUpload,
   },
   {
     label: '商标变更',
