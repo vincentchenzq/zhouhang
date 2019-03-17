@@ -43,7 +43,7 @@
             <p slot="title">商标上传</p>
             <Form>
                 <FormItem label="图片类型">
-                    <Select v-model="fileType"
+                    <Select ref="mySelect" v-model="fileType"
                             clearable filterable style="width:200px">
                         <Option v-for="item in tradeTypes"
                                 :value="item.value"
@@ -92,6 +92,7 @@
 <script>
     import Utils from '../util/Utils';
     import { tradeTypes } from '../util/Constant'
+    import Select from '../select/select'
 
     export default {
         data () {
@@ -103,6 +104,9 @@
                 uploadList: [],
                 tradeTypes: tradeTypes,
             }
+        },
+        components: {
+            Select
         },
         methods: {
             handleView (img) {
@@ -149,6 +153,7 @@
         },
         mounted () {
             this.uploadList = this.$refs.upload.fileList;
+            window.test = this.$refs.mySelect;
         }
     }
 </script>
