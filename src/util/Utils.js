@@ -8,6 +8,7 @@ function getRGBColor() {
 function getBase64Url(file) {
     const result = {
         url: '',
+        file: file
     };
     const fileReader = new FileReader();
     fileReader.onload = () => {
@@ -17,8 +18,7 @@ function getBase64Url(file) {
     return result;
 }
 
-
 export default {
     getRGBColor,
-    getBase64Url,
+    getBase64Url
 };
