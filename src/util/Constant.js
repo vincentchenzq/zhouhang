@@ -1,4 +1,5 @@
 export const MENU = {
+    index: '/index', // 网站首页
     tradeRegistration: '/tradeRegistration', // 商标注册
     tradeLeasing: '/tradeLeasing', // 商标转让
     tradeUpload: '/tradeUpload', // 商标上传

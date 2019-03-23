@@ -9,7 +9,12 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect: MENU.tradeRegistration
+            redirect: MENU.index
+        },
+        {
+            path: MENU.index,
+            name: 'tradeRegistration',
+            component: () => import('../components/Index')
         },
         {
             path: MENU.tradeRegistration,

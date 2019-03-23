@@ -38,57 +38,57 @@
 </style>
 
 <template>
-  <div class="trade-upload text-left">
-    <Card>
-      <p slot="title">商标上传</p>
-      <Form>
-        <FormItem label="图片类型">
-          <Select v-model="fileType" clearable filterable style="width:200px">
-            <Option
-              v-for="item in tradeTypes"
-              :value="item.value"
-              :key="item.value"
-            >{{ item.label }}</Option>
-          </Select>
-        </FormItem>
-        <FormItem label="选择图片">
-          <Upload
-            ref="upload"
-            :show-upload-list="false"
-            :default-file-list="defaultList"
-            :on-success="handleSuccess"
-            :format="['jpg','jpeg','png']"
-            :max-size="2048"
-            :on-format-error="handleFormatError"
-            :on-exceeded-size="handleMaxSize"
-            :before-upload="handleBeforeUpload"
-            multiple
-            type="drag"
-            action="//jsonplaceholder.typicode.com/posts/"
-            style="display: inline-block;width:58px;"
-          >
-            <div style="width: 58px;height:58px;line-height: 58px;">
-              <Icon type="ios-camera" size="20"></Icon>
+    <div class="trade-upload text-left">
+        <Card>
+            <p slot="title">商标上传</p>
+            <Form>
+                <FormItem label="商标类型">
+                    <Select v-model="fileType" clearable filterable style="width:200px">
+                        <Option
+                            v-for="item in tradeTypes"
+                            :value="item.value"
+                            :key="item.value"
+                        >{{ item.label }}</Option>
+                    </Select>
+                </FormItem>
+                <FormItem label="选择图片">
+                    <Upload
+                        ref="upload"
+                        :show-upload-list="false"
+                        :default-file-list="defaultList"
+                        :on-success="handleSuccess"
+                        :format="['jpg','jpeg','png']"
+                        :max-size="2048"
+                        :on-format-error="handleFormatError"
+                        :on-exceeded-size="handleMaxSize"
+                        :before-upload="handleBeforeUpload"
+                        multiple
+                        type="drag"
+                        action="//jsonplaceholder.typicode.com/posts/"
+                        style="display: inline-block;width:58px;"
+                    >
+                        <div style="width: 58px;height:58px;line-height: 58px;">
+                            <Icon type="ios-camera" size="20"></Icon>
+                        </div>
+                    </Upload>
+                    <Divider/>
+                    <div class="demo-upload-list" v-for="(item, index) in uploadList" :key="index">
+                        <img :src="item.url">
+                        <div class="demo-upload-list-cover">
+                            <Icon type="ios-eye-outline" @click.native="handleView(item)"></Icon>
+                            <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
+                        </div>
+                    </div>
+                </FormItem>
+            </Form>
+            <div class="text-center">
+                <Button type="primary" @click="handleSubmit">上传</Button>
             </div>
-          </Upload>
-          <Divider/>
-          <div class="demo-upload-list" v-for="(item, index) in uploadList" :key="index">
-            <img :src="item.url">
-            <div class="demo-upload-list-cover">
-              <Icon type="ios-eye-outline" @click.native="handleView(item)"></Icon>
-              <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
-            </div>
-          </div>
-        </FormItem>
-      </Form>
-      <div class="text-center">
-        <Button type="primary" @click="handleSubmit">上传</Button>
-      </div>
-    </Card>
-    <Modal title="View Image" v-model="visible">
-      <img :src="imgUrl" v-if="visible" style="width: 100%">
-    </Modal>
-  </div>
+        </Card>
+        <Modal title="View Image" v-model="visible">
+            <img :src="imgUrl" v-if="visible" style="width: 100%">
+        </Modal>
+    </div>
 </template>
 <script>
 import Utils from '../util/Utils';
