@@ -41,7 +41,7 @@
     <div class="trade-upload text-left">
         <Card>
             <p slot="title">商标上传</p>
-            <Form>
+            <Form :label-width="80">
                 <FormItem label="商标类型">
                     <Select v-model="fileType" clearable filterable style="width:200px">
                         <Option
@@ -50,6 +50,12 @@
                             :key="item.value"
                         >{{ item.label }}</Option>
                     </Select>
+                </FormItem>
+                <FormItem label="商标名称">
+                    <Input v-model="tradeMarkName" style="width:200px"/>
+                </FormItem>
+                <FormItem label="商标注册号">
+                    <Input v-model="registerNo" style="width:200px"/>
                 </FormItem>
                 <FormItem label="选择图片">
                     <Upload
@@ -93,7 +99,7 @@
 <script>
 import Utils from '../util/Utils';
 import { tradeTypes } from '../util/Constant';
-import { imageUpload } from '../service/fileUploadApi';
+import { imageUpload, tradeUpload } from '../service/fileUploadApi';
 
 export default {
     data() {
@@ -102,6 +108,8 @@ export default {
             imgUrl: '',
             visible: false,
             fileType: '',
+            tradeMarkName: '',
+            registerNo: '',
             uploadList: [],
             tradeTypes: tradeTypes
         };
@@ -143,6 +151,14 @@ export default {
                 this.$Message.error('请选择文件类型！');
                 return;
             }
+            if (!this.tradeMarkName) {
+                this.$Message.error('请输入商标名称！');
+                return;
+            }
+            if (!this.registerNo) {
+                this.$Message.error('请输入商标注册号！');
+                return;
+            }
             if (this.uploadList === 0) {
                 this.$Message.error('请选择文件！');
                 return;
@@ -153,10 +169,19 @@ export default {
                 params.append('file', file);
             });
             // params.append('file', this.uploadList[0].file);
-            params.append('fileType', this.fileType);
             imageUpload(params).then(data => {
                 this.uploadList = [];
-                this.$Message.info(`${data},上传成功！`);
+                tradeUpload({
+                    category: this.fileType,
+                    categoryName: this.tradeTypes.find(
+                        item => this.fileType === item.value
+                    ).label,
+                    imageUrl: data,
+                    registerNo: this.registerNo,
+                    tradeMarkName: this.tradeMarkName
+                }).then(data => {
+                    this.$Message.success(`${data.imageUrl},上传成功！`);
+                });
             });
         }
     },

@@ -28,11 +28,11 @@ export const MENU_LIST = [
     {
         label: '商标资讯',
         value: MENU.tradeInformation
-    },
-    {
-        label: '关于我们',
-        value: MENU.aboutUs
     }
+    // {
+    //     label: '关于我们',
+    //     value: MENU.aboutUs
+    // }
 ];
 
 export const tradeTypes = [

@@ -34,13 +34,13 @@
         <Row class="mt10">
             <Col span="2" class="text-right lh32 mr25">商标名称:</Col>
             <Col span="6">
-                <Input v-model="queryCondition.name"></Input>
+                <Input v-model="queryCondition.tradeMarkName" @on-change="getImageData"></Input>
             </Col>
         </Row>
         <Row class="mt10">
             <Col span="2" class="text-right lh32 mr25">注册号:</Col>
             <Col span="6">
-                <Input v-model="queryCondition.no"></Input>
+                <Input v-model="queryCondition.registerNo" @on-change="getImageData"></Input>
             </Col>
         </Row>
         <Row class="mt10">
@@ -62,21 +62,33 @@
             </Col>
         </Row>
 
-        <Scroll :on-reach-bottom="getImageData" :distance-to-edge="[-30,-30]" :height="height">
-            <ul class="clearfix">
-                <li class="fl trade-mark" v-for="(item, index) in imageUrl" :key="index">
-                    <img :src="item.url" alt width="176">
-                    <div>
-                        <input :value="item.name">
-                    </div>
-                </li>
-            </ul>
-        </Scroll>
+        <ul class="clearfix">
+            <li class="fl trade-mark" v-for="(item, index) in imageUrl" :key="index">
+                <img :src="item.imageUrl" alt width="176">
+                <div>商标名称：{{ item.tradeMarkName }}</div>
+                <div>注册号：{{ item.registerNo }}</div>
+                <div>商标类型：{{ item.categoryName }}</div>
+            </li>
+        </ul>
+
+        <div class="clearfix">
+            <div class="text-center" style="margin-top:50px;" v-show="!total">暂无数据</div>
+            <Page
+                v-show="total"
+                class="text-right"
+                :total="total"
+                :page-size="queryCondition.size"
+                @on-change="changePageSize"
+            />
+        </div>
     </div>
 </template>
 <script>
 import Utils from '../util/Utils';
 import { tradeTypes } from '../util/Constant';
+import { getImage } from '../service/tradeLeasingApi';
+import throttle from 'lodash.throttle';
+import { debug } from 'util';
 
 export default {
     data() {
@@ -88,10 +100,13 @@ export default {
             msg: 'trade-leasing--商标转让',
             imageUrl: [],
             imageData: {},
+            total: 0,
             queryCondition: {
-                type: '',
-                name: '',
-                no: ''
+                category: '',
+                tradeMarkName: '',
+                registerNo: '',
+                page: 1,
+                size: 40
             },
             typeList: [
                 {
@@ -111,14 +126,28 @@ export default {
         selectTradeType(index) {
             if (this.activeTradeType === index) {
                 this.activeTradeType = '';
+                this.queryCondition.category = '';
             } else {
                 this.activeTradeType = index;
+                this.queryCondition.category = this.tradeTypes[index].value;
             }
+            this.getImageData();
         },
         getImageData() {
-            return new Promise(resolve => {
-                this.imageUrl = this.imageUrl.concat([]);
+            getImage(this.queryCondition).then(data => {
+                this.total = data.total;
+                this.imageUrl = data.data;
+                this.imageUrl.forEach(item => {
+                    item.categoryName = this.tradeTypes.find(
+                        it => item.category === it.value
+                    ).label;
+                    item.imageUrl = `/backend/static/image${item.imageUrl}`;
+                });
             });
+        },
+        changePageSize(page) {
+            this.queryCondition.page = page;
+            this.getImageData();
         },
         handleReachBottom() {
             return this.getImageData();

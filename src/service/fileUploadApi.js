@@ -7,3 +7,11 @@ export function imageUpload(data) {
         data: data || {}
     });
 }
+export function tradeUpload(data) {
+    return fetch({
+        url: '/trade/mark',
+        method: 'POST',
+        // 'Content-Type': 'multipart/form-data',
+        data: data || {}
+    });
+}

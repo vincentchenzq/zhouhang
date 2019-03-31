@@ -22,6 +22,16 @@ Vue.prototype.$Message.config({
     duration: 3
 });
 
+let times = 0;
+router.beforeEach((to, from, next) => {
+    if (times++ === 0) {
+        next('/index');
+        return;
+    } else {
+        next();
+    }
+});
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

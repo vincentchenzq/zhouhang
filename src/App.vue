@@ -38,7 +38,7 @@
                 <span
                     style="line-height:50px;font-size: 20px;padding-left: 20px;"
                     @click="baseToIndex"
-                >舟航科技</span>
+                >舟航网络</span>
             </div>
             <ul class="dif pointer f14">
                 <li
@@ -48,7 +48,7 @@
                     class="f14 mr25"
                     @click="selectMenu(item, index)"
                 >{{ item.label }}</li>
-                <li @click="value4=!value4">联系客服</li>
+                <li @click="value4=!value4">联系我们</li>
             </ul>
         </div>
         <div class="layout" :style="{minHeight: 'calc(90vh - 60px)'}">

@@ -1,22 +1,11 @@
 import fetch from '../util/fetch';
 
-function getImage(params) {
+function getImage(data) {
     return fetch({
-        url: '/api/img',
-        method: 'GET',
-        params: params || {},
+        url: '/trade/mark/page',
+        method: 'POST',
+        data: data || {}
     });
 }
 
-function getImage2(params) {
-    return fetch({
-        url: '/api/img',
-        method: 'GET',
-        params: params || {},
-    });
-}
-
-export {
-    getImage,
-    getImage2,
-};
+export { getImage };
