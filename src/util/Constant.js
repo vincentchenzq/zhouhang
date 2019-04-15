@@ -5,7 +5,8 @@ export const MENU = {
     tradeUpload: '/tradeUpload', // 商标上传
     tradeChange: '/tradeChange', // 商标变更
     tradeInformation: '/tradeInformation', // 商标资讯
-    aboutUs: '/aboutUs' // 关于我们
+    aboutUs: '/aboutUs', // 关于我们
+    login: '/zhouhang-login' // 关于我们
 };
 
 export const MENU_LIST = [
@@ -24,11 +25,11 @@ export const MENU_LIST = [
     {
         label: '商标变更',
         value: MENU.tradeChange
-    },
-    {
-        label: '商标资讯',
-        value: MENU.tradeInformation
     }
+    // {
+    //     label: '商标资讯',
+    //     value: MENU.tradeInformation
+    // }
     // {
     //     label: '关于我们',
     //     value: MENU.aboutUs

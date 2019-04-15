@@ -40,8 +40,3 @@ new Vue({
     components: { App },
     template: '<App/>'
 });
-
-store.dispatch('LOGIN', {
-    password: '123456',
-    username: 'admin'
-});

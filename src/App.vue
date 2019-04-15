@@ -11,10 +11,16 @@
     .layout {
         display: flex;
         box-sizing: border-box;
+        padding-top: 50px;
+        width: 1200px;
+        margin: 0 auto;
     }
     .menu {
         display: flex;
         background: #1c2327;
+        position: fixed;
+        width: 100%;
+        z-index: 10;
         /*justify-content: space-between;*/
         & li {
             padding: 0 16px;
@@ -51,8 +57,8 @@
                 <li @click="value4=!value4">联系我们</li>
             </ul>
         </div>
-        <div class="layout" :style="{minHeight: 'calc(90vh - 60px)'}">
-            <Content :style="{ background: '#fff',}">
+        <div class="layout">
+            <Content :style="{ background: '#fff'}">
                 <keep-alive>
                     <router-view/>
                 </keep-alive>
@@ -99,7 +105,6 @@ export default {
     data() {
         return {
             value4: false,
-            menuList: MENU_LIST,
             activeIndex: -1,
             pStyle: {
                 fontSize: '16px',
@@ -109,6 +114,16 @@ export default {
                 marginBottom: '16px'
             }
         };
+    },
+    computed: {
+        menuList() {
+            return MENU_LIST.filter(item => {
+                if (!this.$store.state.user.token) {
+                    return item.value !== MENU.tradeUpload;
+                }
+                return true;
+            });
+        }
     },
     methods: {
         baseToIndex() {

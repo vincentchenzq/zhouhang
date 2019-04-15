@@ -45,6 +45,11 @@ export default new Router({
             path: MENU.aboutUs,
             name: 'aboutUs',
             component: () => import('../components/AboutUs')
+        },
+        {
+            path: MENU.login,
+            name: 'aboutUs',
+            component: () => import('../components/Login')
         }
     ]
 });

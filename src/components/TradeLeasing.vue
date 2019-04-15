@@ -1,13 +1,20 @@
 <style lang="less">
 .trade-leasing {
     @active-color: #da251d;
-    .trade-mark {
-        border: 1px solid #f0f0f0;
-        margin-right: 29px;
-        margin-bottom: 20px;
-        box-sizing: border-box;
-        width: 200px;
+    .trade-mark-container {
+        padding: 40px 40px 0 40px;
+        // display: flex;
+        // flex-wrap: wrap;
+        // justify-content: space-between;
+        .trade-mark {
+            border: 1px solid #f0f0f0;
+            margin-bottom: 30px;
+            box-sizing: border-box;
+            width: 250px;
+            margin-right: 30px;
+        }
     }
+
     .tradeItem {
         white-space: nowrap;
         height: 32px;
@@ -30,7 +37,7 @@
 }
 </style>
 <template>
-    <div class="trade-leasing text-left" style="padding-left: 20px;">
+    <div class="trade-leasing text-left">
         <Row class="mt10">
             <Col span="2" class="text-right lh32 mr25">商标名称:</Col>
             <Col span="6">
@@ -62,12 +69,19 @@
             </Col>
         </Row>
 
-        <ul class="clearfix">
-            <li class="fl trade-mark" v-for="(item, index) in imageUrl" :key="index">
-                <img :src="item.imageUrl" alt width="176">
-                <div>商标名称：{{ item.tradeMarkName }}</div>
-                <div>注册号：{{ item.registerNo }}</div>
-                <div>商标类型：{{ item.categoryName }}</div>
+        <ul class="trade-mark-container clearfix">
+            <li class="trade-mark fl oh" v-for="(item, index) in imageUrl" :key="index">
+                <div style="width:250px;height:140px;">
+                    <img
+                        :src="item.imageUrl"
+                        alt="图片加载失败"
+                        width="250"
+                        onerror="this.src='/static/default.jpg'"
+                    >
+                </div>
+                <div class="mt10">商标名称：{{ item.tradeMarkName }}</div>
+                <div class="mt10">注册号：{{ item.registerNo }}</div>
+                <div class="mt10">商标类型：{{ item.categoryName }}</div>
             </li>
         </ul>
 
@@ -75,7 +89,7 @@
             <div class="text-center" style="margin-top:50px;" v-show="!total">暂无数据</div>
             <Page
                 v-show="total"
-                class="text-right"
+                class="text-right mr25"
                 :total="total"
                 :page-size="queryCondition.size"
                 @on-change="changePageSize"
